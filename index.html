@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>巴啦啦能量</title>
 </head>
-<body>
+<body onload="yiyan();">
     <div class="head" id="head">
         <div class="head1" id="head1">
             <!-- <img src="dztz.jpg"  alt="DZTZSJ" /> -->
@@ -69,6 +69,8 @@
             <br/><br/>
             <!-- 机选五注-->
             <button class="submit layui-btn btn5" id="btn5" type="submit" onclick="SC5();">巴啦啦黑魔法</button>
+            <br/><br/>
+            <p id="hitokoto" class="hitokoto">:D 获取中...</p>
         </div>
     </div>
     <style type="text/css">
@@ -79,9 +81,9 @@
         .head1{margin-top: 250px;} 
         .btn5{margin-right: 5px;}
         .sc5{display: none;}
+        .hitokoto{border-left: 5px solid #0073d8;border-right: 5px solid #0073d8;background-color: #3288d31a;padding: 10px;text-align: center;color: #0073d8;margin: 5px 0 5px 0;}
         .layui-btn {display: inline-block;height: 38px;line-height: 38px;padding: 0 18px;background-color: #009688;color: #fff;white-space: nowrap;text-align: center;font-size: 14px;border: none;border-radius: 2px;cursor: pointer;}
     </style>
-
     <script type="text/javascript">
         //机选一注
         function SC()
@@ -159,14 +161,15 @@
                         label.innerText=(lqsz.sort(sort)[0]);
                         var label=document.getElementById("l2");
                         label.innerText=(lqsz.sort(sort)[1]);
+
+                        yiyan();
                     }
         }
         //机选五注
         function SC5()
         {
             document.getElementById("sc5").style.display="inline";
-            //document.getElementById("head1").style.margin='82px';
-            document.getElementById("head1").style.margin='58px';
+            document.getElementById("head1").style.margin='58px 0px 0px 0px';
 
 
             //生成伪随机数
@@ -385,8 +388,29 @@
                         label.innerText=(lqsz5.sort(sort)[0]);
                         var label=document.getElementById("l10");
                         label.innerText=(lqsz5.sort(sort)[1]);
+
+                        yiyan();
                     }
         }
+
+            function yiyan() 
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open('get', 'https://v1.hitokoto.cn');
+                xhr.onreadystatechange = function () 
+                {
+                    if (xhr.readyState === 4) 
+                    {
+                        var data = JSON.parse(xhr.responseText);
+                        var hitokoto = document.getElementById('hitokoto');
+                        hitokoto.innerText = data.hitokoto;
+                    }
+                }
+                xhr.send();
+            }
+
     </script>
+
+
 </body>
 </html>
