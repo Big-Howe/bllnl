@@ -393,24 +393,22 @@
                     }
         }
 
-            function yiyan() 
+        function yiyan() 
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', 'https://v1.hitokoto.cn');
+            xhr.onreadystatechange = function () 
             {
-                var xhr = new XMLHttpRequest();
-                xhr.open('get', 'https://v1.hitokoto.cn');
-                xhr.onreadystatechange = function () 
+                if (xhr.readyState === 4) 
                 {
-                    if (xhr.readyState === 4) 
-                    {
-                        var data = JSON.parse(xhr.responseText);
-                        var hitokoto = document.getElementById('hitokoto');
-                        hitokoto.innerText = data.hitokoto;
-                    }
+                    var data = JSON.parse(xhr.responseText);
+                    var hitokoto = document.getElementById('hitokoto');
+                    var from = document.getElementById('hitokot');
+                    hitokoto.innerText = "『" + data.hitokoto + "』" + "\n" + "---「" + data.from + "」";
                 }
-                xhr.send();
             }
-
+            xhr.send();
+        }
     </script>
-
-
 </body>
 </html>
